@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% csrf_token %}
+  <h2>Welcome, {{ user.get_full_name }} <small>{{ user.username }}</small>!</h2>
+  <h1>{{userss}}</h1>
+  {% for field in profile %}
+    <li><b>{{ field.label }}:</b> {{ field.data }}</li>
+{% endfor %}
+<br>
+<li><a href="/profile_view/{{userss}}/followers">Followers</a></li>
+	<li><a href="/profile_view/{{userss}}/following">Following</a></l1>
+<li><a href="/profile_view/{{userss}}/followers">Followers</a></li>
+	<li><a href="/profile_view/{{userss}}/following">Following</a></l1>
+
+{% for field in followers %}
+    <li><b>Follower: <a href="/profile_view/{{field}}"> {{field}}</li>
+{% endfor %}
+{% for field in following %}
+    <li><b>Following: <a href="/profile_view/{{field}}">{{field}}</a></li>
+{% endfor %}
+
+{% for d in document %}
+    {% for i in votes %}
+    {% if forloop.counter == forloop.parentloop.counter %}
+
+          <li><b>No of Votes : {{i}}</li>
+    {% endif %}
+    {% endfor %}
+    <li><b>File Description : {{d.description}}</li>
+    	<li><b>File Id : {{d.id}}</li>
+    <!--<button type="submit">Like</button>-->
+
+		    <div class=square>
+		    	<img src="{{ d.document.url }}" class="img-responsive" height="100" width="100">
+		    </div>
+
+
+    <a href="/profile_view/{{userss}}/upvote/{{ d.id }}">like</a>
+    <a href="/profile_view/{{userss}}/listofupvotes/{{ d.id }}">listofupvotes</a>
+
+    <a href="/profile_view/{{userss}}/deletephoto/{{ d.id }}">delete</a>
+    {{deleteFailed}}
+    <br>
+    {% for upid in upvoteid %}
+	    
+	    <l1><a href="{% url 'profile_view' upid %}">{{upid}}</a></li>
+	    {% for update in upvotedate %}
+	    {% if forloop.counter == forloop.parentloop.counter %}
+          <li><b>Date Created: {{update}}</li>
+    	{% endif %}
+		{% endfor %}
+	{% endfor %}
+    <!--{% for listhai in listhaire %}
+
+    {% if listhai == photo_iddd %}
+    <p>{{listhai}}</p>-->
+    
+	<!--{% endif %}
+	{% endfor %}-->
+    <br>
+    <br>
+    <hr>
+
+
+{% endfor %}
+
+<hr>
+<h1>All the users</h1>
+{% for d in search %}
+    <!--<l1><a href="{% url 'profile_view' d.user %}">{{d.user}}</a></li>-->
+    <l1><a href="/profile_view/{{d.user}}">{{d.user}}</a></li>	
+    <l1><a href="/profile_view/{{d.user}}/follow">Follow</a></li>
+    
+    <li><b>Bio :  {{d.bio}}</li>
+{% endfor %}
+<br>
+<br>
+<hr>
+<a href="{% url 'model_form_upload' %}">Upload photos</a>
+  <p>Thanks for confirming your email address!</p>
+{% endblock %}

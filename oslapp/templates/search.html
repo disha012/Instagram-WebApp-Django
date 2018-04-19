@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Search</h2>
+  {% for d in document %}
+  <li><b>File Description : {{d.description}}</li>
+      <li><b>File Uploaded at : {{d.uploaded_at}}</li>
+        <div class=square>
+          <img src="{{ d.document.url }}" class="img-responsive" height="100" width="100>
+        </div>
+        <li><a href="{% url 'profile_view' d.user %}">{{upid}}{{d.user}}</a></li>
+        <hr>
+        <hr>
+{% endfor %}
+{% endblock %}
